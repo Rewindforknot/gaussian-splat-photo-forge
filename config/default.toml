@@ -1,0 +1,38 @@
+# Default pipeline config. Override per-run with --config path/to/your.toml.
+
+[project]
+name = "untitled-scene"
+output_dir = "outputs"
+
+[input]
+image_dir = "photos"
+image_exts = [".jpg", ".jpeg", ".png", ".tif", ".tiff"]
+max_image_dim = 2000        # downscale longest edge before SfM
+blur_reject_threshold = 60  # Laplacian variance; below this, drop the frame
+
+[reconstruct]
+backend = "colmap"          # colmap | pycolmap | glomap
+matcher = "exhaustive"      # exhaustive | vocab_tree | sequential
+use_gpu = true
+camera_model = "OPENCV"
+single_camera = true
+min_registered_images = 12
+
+[train]
+iterations = 30000
+sh_degree = 3
+densify_until_iter = 15000
+densify_grad_threshold = 0.0002
+position_lr_init = 0.00016
+white_background = false
+save_every = 5000
+
+[export]
+formats = ["ply", "splat"]
+ply_compressed = true
+splat_sh_degree = 3
+
+[viewer]
+auto_open = false
+host = "127.0.0.1"
+port = 8080
