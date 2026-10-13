@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gaussian-splat-photo-forge"
+version = "0.6.2"
+description = "Turn a folder of photos into a 3D Gaussian splat scene."
+readme = "CONTRIBUTING.md"
+requires-python = ">=3.10"
+authors = [{ name = "gsforge contributors" }]
+license = { text = "MIT" }
+dependencies = [
+    "numpy>=2.0,<3.0",
+    "Pillow>=10.4",
+    "torch>=2.4",
+    "tqdm>=4.66",
+    "rich>=13.7",
+    "typer>=0.12",
+    "pydantic>=2.7",
+    "plyfile>=1.1",
+    "tomli-w>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.2", "ruff>=0.5", "mypy>=1.10"]
+
+[project.scripts]
+gsforge = "gsforge.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.mypy]
+strict = true
+packages = ["gsforge"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["cuda: requires a CUDA GPU"]
