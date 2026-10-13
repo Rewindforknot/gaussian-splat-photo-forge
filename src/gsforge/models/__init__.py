@@ -1,0 +1,1 @@
+"""Model definitions: Gaussian cloud, camera, rasterizer bindings."""
